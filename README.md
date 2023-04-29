@@ -1,1 +1,3 @@
-# http_generator
+# Generator for HTTP header fields, status codes and media types
+
+Coming soon...

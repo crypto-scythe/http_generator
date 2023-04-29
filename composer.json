@@ -1,0 +1,31 @@
+{
+    "name": "crypto_scythe/http_generator",
+    "version": "1.0.0",
+    "description": "HTTP header fields, media types and status codes",
+    "keywords": [
+        "http",
+        "header",
+        "headers",
+        "status",
+        "code",
+        "media",
+        "type"
+    ],
+    "authors": [
+        {
+            "name": "Chris Fasel",
+            "email": "crypto.scythe@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CryptoScythe\\Http\\Generator\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "ext-json": "*"
+    }
+}
