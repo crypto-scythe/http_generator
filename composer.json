@@ -1,6 +1,6 @@
 {
     "name": "crypto_scythe/http_generator",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "HTTP header fields, media types and status codes",
     "license": "MIT",
     "keywords": [
@@ -28,5 +28,8 @@
     },
     "require-dev": {
         "ext-json": "*"
-    }
+    },
+    "bin": [
+        "bin/http_generate.php"
+    ]
 }
