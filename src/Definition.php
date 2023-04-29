@@ -4,14 +4,12 @@ namespace CryptoScythe\Http\Generator;
 
 final class Definition
 {
-    public readonly string $namespace;
-
     public function __construct(
+        private readonly string $conceptFile,
         public readonly string $className,
         public readonly RendererInterface $renderer,
-        private readonly string $conceptFile,
+        public readonly string $namespace,
     ) {
-        $this->namespace = 'CryptoScythe\Http';
     }
 
     public function conceptUrl(): string

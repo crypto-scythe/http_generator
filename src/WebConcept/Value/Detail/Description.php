@@ -6,21 +6,16 @@ namespace CryptoScythe\Http\Generator\WebConcept\Value\Detail;
 
 class Description
 {
-    private string $description;
-
-    public function __construct(string $description)
+    public function __construct(private readonly string $description)
     {
-        $this->description = $description;
     }
 
-    public function description(): string
-    {
-        return $this->description;
-    }
-
+    /**
+     * @return string[]
+     */
     public function wrapped(int $maxLength): array
     {
-        $description = $this->description();
+        $description = $this->description;
 
         if (strlen($description) <= $maxLength) {
             return [$description];
@@ -33,7 +28,7 @@ class Description
         $maxIndex = count($words) - 1;
 
         foreach ($words as $index => $word) {
-            if (strlen($currentLine . $word) >= $maxLength ) {
+            if (strlen($currentLine . $word) >= $maxLength) {
                 $lines[] = trim($currentLine);
                 $currentLine = $word . ' ';
             } else {

@@ -8,5 +8,7 @@ use CryptoScythe\Http\Generator\WebConcept\Value;
 
 interface RendererInterface
 {
-    public function renderConstWithContent(Value $value, $indentation = 4): string;
+    public function renderHeadline(Value $value): string;
+
+    public function renderConstWithContent(Value $value): string;
 }

@@ -10,31 +10,31 @@ final class Generator
 {
     public function generate(
         string $outputPath,
-        Definition $definition
+        Definition $definition,
     ): void {
         $webConcept = new WebConcept(
-            json_decode(
-                file_get_contents($definition->conceptUrl()),
+            (array) json_decode(
+                (string) file_get_contents($definition->conceptUrl()),
                 true,
                 JSON_THROW_ON_ERROR
             ),
         );
 
         $constants = [];
-        $registry = $webConcept->registry();
-        $conceptLink = $webConcept->id();
+        $registry = $webConcept->registry;
+        $conceptLink = $webConcept->id;
 
-        foreach ($webConcept->values() as $value) {
+        foreach ($webConcept->values as $value) {
             $constContent = $definition->renderer->renderConstWithContent($value);
 
-            $block = join(
+            $block = implode(
                 "\n     * \n     * ",
-                array_map($this->documentationBlock(...), $value->details())
+                array_map($this->documentationBlock(...), $value->details)
             );
 
             $constants[] = <<<EOCONST
                 /**
-                 * {$value->value()}
+                 * {$definition->renderer->renderHeadline($value)}
                  *
                  * {$block}
                  */
@@ -42,25 +42,25 @@ final class Generator
             EOCONST;
         }
 
-        $joinedConstants = join("\n\n", $constants);
+        $joinedConstants = implode("\n\n", $constants);
 
         $class = <<<EOPHP
         <?php
-        
+
         declare(strict_types=1);
-        
+
         namespace {$definition->namespace};
-        
+
         /**
          * Class {$definition->className}
-         * 
+         *
          * @see {$conceptLink}
          * @see {$registry}
          */
         final class {$definition->className} {
         {$joinedConstants}
         }
-        
+
         EOPHP;
 
         file_put_contents(
@@ -73,26 +73,30 @@ final class Generator
         );
     }
 
-    private function documentationBlock(Detail $detail): string {
-
-        if (!empty($detail->description())) {
-            $description = join("\n     * ", $detail->description()->wrapped(110));
+    private function documentationBlock(Detail $detail): string
+    {
+        if (!empty($detail->description)) {
+            $description = implode(
+                "\n     * ",
+                $detail->description->wrapped(110)
+            );
 
             return <<<EODOC
             {$description}
                  *
-                 * @see {$detail->specification()}
-                 * @see {$detail->documentation()}
+                 * @see {$detail->specification}
+                 * @see {$detail->documentation}
             EODOC;
         }
 
         return <<<EODOC
-             * @see {$detail->specification()}
-             * @see {$detail->documentation()}
+             * @see {$detail->specification}
+             * @see {$detail->documentation}
         EODOC;
     }
 
-    private function replaceHttpWithHttps(string $url) {
+    private function replaceHttpWithHttps(string $url): string
+    {
         return str_replace('http://', 'https://', $url);
     }
 }

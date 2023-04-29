@@ -8,40 +8,45 @@ use CryptoScythe\Http\Generator\WebConcept\Value;
 
 final class StatusCodeRenderer implements RendererInterface
 {
-    public function renderConstWithContent(Value $value, $indentation = 4): string
+    public function renderHeadline(Value $value): string
+    {
+        return sprintf('Status %s', $value->value);
+    }
+
+    public function renderConstWithContent(Value $value): string
     {
 
         $statusCodeConst = trim(
-            strtoupper(preg_replace('/[^0-9A-z]/', '_', $value->value())),
+            strtoupper(preg_replace('/[^0-9A-z]/', '_', $value->value)),
             '_',
         );
         $statusMessageConst = trim(
-            strtoupper(preg_replace('/[^0-9A-z]/', '_', $value->description())),
+            strtoupper(preg_replace('/[^0-9A-z]/', '_', $value->description)),
             '_',
         );
 
-        return join(
-            str_pad("\n", $indentation + 1, ' '),
+        return implode(
+            str_pad("\n", 5, ' '),
             [
                 sprintf(
                     'public const STATUS_%s = %s;',
                     $statusCodeConst,
-                    $value->value(),
+                    $value->value,
                 ),
                 sprintf(
                     "public const MESSAGE_%s = '%s';",
                     $statusCodeConst,
-                    str_replace('\'', '\\\'', $value->description()),
+                    str_replace('\'', '\\\'', $value->description),
                 ),
                 sprintf(
                     'public const STATUS_%s = self::STATUS_%s;',
                     $statusMessageConst,
-                    $value->value(),
+                    $value->value,
                 ),
                 sprintf(
                     "public const MESSAGE_%s = self::MESSAGE_%s;",
                     $statusMessageConst,
-                    $value->value(),
+                    $value->value,
                 ),
             ]
         );

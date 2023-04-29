@@ -3,7 +3,9 @@
 
 declare(strict_types=1);
 
-include $_composer_autoload_path ?? __DIR__ . '/../vendor/autoload.php';
+/** @var string|null $_composer_autoload_path */
+/** @psalm-suppress UnresolvableInclude */
+require $_composer_autoload_path ?? __DIR__ . '/../vendor/autoload.php';
 
 use CryptoScythe\Http\Generator\Definition;
 use CryptoScythe\Http\Generator\Generator;
@@ -12,18 +14,19 @@ use CryptoScythe\Http\Generator\MediaTypesRenderer;
 use CryptoScythe\Http\Generator\StatusCodeRenderer;
 
 set_error_handler(
-    function (int $severity, string $message, string $file, int $line): void
-    {
+    function (int $severity, string $message, string $file, int $line): void {
         throw new ErrorException($message, $severity, $severity, $file, $line);
     }
 );
 
 try {
     if (count($argv) < 2) {
+        throw new RuntimeException('Namespace and output directory missing', 1);
+    } elseif (count($argv) < 3) {
         throw new RuntimeException('Output directory missing', 1);
     }
 
-    [, $outputDirectory] = $argv;
+    [, $namespace, $outputDirectory] = $argv;
 
     if (is_dir($outputDirectory) === false || is_writable($outputDirectory) === false) {
         throw new RuntimeException(
@@ -36,25 +39,28 @@ try {
 
     $definitions = [
         new Definition(
+            'http-header.json',
             'HeaderFields',
             new HeaderFieldsRenderer(),
-            'http-header.json',
+            $namespace,
         ),
         new Definition(
+            'media-type.json',
             'MediaTypes',
             new MediaTypesRenderer(),
-            'media-type.json',
+            $namespace,
         ),
         new Definition(
+            'http-status-code.json',
             'StatusCodes',
             new StatusCodeRenderer(),
-            'http-status-code.json',
+            $namespace,
         ),
     ];
 
     echo 'Generating classes' . PHP_EOL;
 
-    foreach($definitions as $definition) {
+    foreach ($definitions as $definition) {
         echo sprintf(
             ' - %s -> %s/%s',
             $definition->className,
@@ -73,7 +79,13 @@ try {
 
         if ($resultCode > 0) {
             throw new RuntimeException(
-                implode(PHP_EOL, array_filter($output)),
+                implode(
+                    PHP_EOL,
+                    array_map(
+                        fn (mixed $value) => (string) $value,
+                        array_filter($output)
+                    ),
+                ),
                 $resultCode,
             );
         }
