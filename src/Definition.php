@@ -2,6 +2,8 @@
 
 namespace CryptoScythe\Http\Generator;
 
+use CryptoScythe\Http\Generator\Renderer\RendererInterface;
+
 final class Definition
 {
     public function __construct(

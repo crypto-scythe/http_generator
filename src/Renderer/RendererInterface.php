@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CryptoScythe\Http\Generator;
+namespace CryptoScythe\Http\Generator\Renderer;
 
 use CryptoScythe\Http\Generator\WebConcept\Value;
 

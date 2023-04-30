@@ -1,6 +1,6 @@
 {
     "name": "crypto_scythe/http_generator",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "HTTP header fields, media types and status codes",
     "license": "MIT",
     "keywords": [

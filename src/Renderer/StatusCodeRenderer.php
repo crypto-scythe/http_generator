@@ -2,28 +2,20 @@
 
 declare(strict_types=1);
 
-namespace CryptoScythe\Http\Generator;
+namespace CryptoScythe\Http\Generator\Renderer;
 
+use CryptoScythe\Http\Generator\ConstantNormalizer;
 use CryptoScythe\Http\Generator\WebConcept\Value;
 
-final class StatusCodeRenderer implements RendererInterface
+final class StatusCodeRenderer extends AbstractRenderer
 {
-    public function renderHeadline(Value $value): string
-    {
-        return sprintf('Status %s', $value->value);
-    }
+    protected const HEADLINE_INTRO = 'Status code';
 
     public function renderConstWithContent(Value $value): string
     {
 
-        $statusCodeConst = trim(
-            strtoupper(preg_replace('/[^0-9A-z]/', '_', $value->value)),
-            '_',
-        );
-        $statusMessageConst = trim(
-            strtoupper(preg_replace('/[^0-9A-z]/', '_', $value->description)),
-            '_',
-        );
+        $statusCodeConst = ConstantNormalizer::normalize($value->value);
+        $statusMessageConst = ConstantNormalizer::normalize($value->description);
 
         return implode(
             str_pad("\n", 5, ' '),

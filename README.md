@@ -24,6 +24,54 @@ After running the command three files will be created:
 
 Every file contains constants which can be used for convenience and looking up the underlying concepts regarding them.
 
+### Example for `AuthenticationSchemes.php`
+
+```php
+/**
+ * Authentication scheme Basic
+ *
+ * The Basic authentication scheme is based on the model that the client needs to authenticate itself with a
+ * user-id and a password for each protection space ("realm"). The realm value is a free-form string that can
+ * only be compared for equality with other realms on that server.
+ *
+ * @see https://webconcepts.info/specs/IETF/RFC/7617
+ * @see https://datatracker.ietf.org/doc/html/rfc7617#section-2
+ */
+public const BASIC = 'Basic';
+```
+
+### Example for `CacheDirectives.php`
+
+```php
+/**
+ * Cache directive max-age
+ *
+ * The "max-age" request directive indicates that the client is unwilling to accept a response whose age is
+ * greater than the specified number of seconds. Unless the max-stale request directive is also present, the
+ * client is not willing to accept a stale response. The "max-age" response directive indicates that the
+ * response is to be considered stale after its age is greater than the specified number of seconds.
+ *
+ * @see https://webconcepts.info/specs/IETF/RFC/7234
+ * @see https://datatracker.ietf.org/doc/html/rfc7234#section-5.2.1.1
+ */
+public const MAX_AGE = 'max-age';
+```
+
+### Example for `ContentCodings.php`
+
+```php
+/**
+ * Content coding gzip
+ *
+ * The "gzip" coding is an LZ77 coding with a 32-bit Cyclic Redundancy Check (CRC) that is commonly produced by
+ * the gzip file compression program. A recipient SHOULD consider "x-gzip" to be equivalent to "gzip".
+ *
+ * @see https://webconcepts.info/specs/IETF/RFC/7230
+ * @see https://datatracker.ietf.org/doc/html/rfc7230#section-4.2.3
+ */
+public const GZIP = 'gzip';
+```
+
 ### Example for `HeaderFields.php`
 ```php
 /**
@@ -65,11 +113,28 @@ public const CONTENT_TYPE = 'Content-Type';
 public const APPLICATION_JSON = 'application/json';
 ```
 
+### Example for `RequestMethods.php`
+
+```php
+/**
+ * Request method GET
+ *
+ * The GET method requests transfer of a current selected representation for the target resource. GET is the
+ * primary mechanism of information retrieval and the focus of almost all performance optimizations. Hence, when
+ * people speak of retrieving some identifiable information via HTTP, they are generally referring to making a
+ * GET request.
+ *
+ * @see https://webconcepts.info/specs/IETF/RFC/7231
+ * @see https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.1
+ */
+public const GET = 'GET';
+```
+
 ### Example for `StatusCodes.php`
 
 ```php
 /**
- * Status 404
+ * Status code 404
  *
  * The 404 (Not Found) status code indicates that the origin server did not find a current representation for
  * the target resource or is not willing to disclose that one exists. A 404 status code does not indicate

@@ -9,9 +9,13 @@ require $_composer_autoload_path ?? __DIR__ . '/../vendor/autoload.php';
 
 use CryptoScythe\Http\Generator\Definition;
 use CryptoScythe\Http\Generator\Generator;
-use CryptoScythe\Http\Generator\HeaderFieldsRenderer;
-use CryptoScythe\Http\Generator\MediaTypesRenderer;
-use CryptoScythe\Http\Generator\StatusCodeRenderer;
+use CryptoScythe\Http\Generator\Renderer\AuthenticationSchemesRenderer;
+use CryptoScythe\Http\Generator\Renderer\CacheDirectivesRenderer;
+use CryptoScythe\Http\Generator\Renderer\ContentCodingsRenderer;
+use CryptoScythe\Http\Generator\Renderer\HeaderFieldsRenderer;
+use CryptoScythe\Http\Generator\Renderer\MediaTypesRenderer;
+use CryptoScythe\Http\Generator\Renderer\RequestMethodsRenderer;
+use CryptoScythe\Http\Generator\Renderer\StatusCodeRenderer;
 
 set_error_handler(
     function (int $severity, string $message, string $file, int $line): void {
@@ -39,6 +43,24 @@ try {
 
     $definitions = [
         new Definition(
+            'http-authentication-scheme.json',
+            'AuthenticationSchemes',
+            new AuthenticationSchemesRenderer(),
+            $namespace,
+        ),
+        new Definition(
+            'http-cache-directive.json',
+            'CacheDirectives',
+            new CacheDirectivesRenderer(),
+            $namespace,
+        ),
+        new Definition(
+            'http-content-coding.json',
+            'ContentCodings',
+            new ContentCodingsRenderer(),
+            $namespace,
+        ),
+        new Definition(
             'http-header.json',
             'HeaderFields',
             new HeaderFieldsRenderer(),
@@ -48,6 +70,12 @@ try {
             'media-type.json',
             'MediaTypes',
             new MediaTypesRenderer(),
+            $namespace,
+        ),
+        new Definition(
+            'http-method.json',
+            'RequestMethods',
+            new RequestMethodsRenderer(),
             $namespace,
         ),
         new Definition(
@@ -95,6 +123,6 @@ try {
 
     echo 'done' . PHP_EOL;
 } catch (Throwable $error) {
-    echo 'Error: ' . $error->getMessage() . PHP_EOL;
+    echo PHP_EOL . 'Error: ' . $error->getMessage() . PHP_EOL;
     exit($error->getCode());
 }

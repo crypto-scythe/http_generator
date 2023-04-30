@@ -25,7 +25,7 @@ final class Generator
         $conceptLink = $webConcept->id;
 
         foreach ($webConcept->values as $value) {
-            $constContent = $definition->renderer->renderConstWithContent($value);
+            $constContent = trim($definition->renderer->renderConstWithContent($value));
 
             $block = implode(
                 "\n     * \n     * ",

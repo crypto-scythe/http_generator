@@ -17,8 +17,8 @@ final class WebConcept
 
     public function __construct(array $data)
     {
-        $this->id = (string) $data['id'];
-        $this->registry = (string) $data['registry'];
+        $this->id = (string) ($data['id'] ?? '');
+        $this->registry = (string) ($data['registry'] ?? '');
         $this->values = array_map($this->valueFromArray(...), (array) ($data['values'] ?? []));
     }
 
