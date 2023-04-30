@@ -12,10 +12,15 @@ use CryptoScythe\Http\Generator\Generator;
 use CryptoScythe\Http\Generator\Renderer\AuthenticationSchemesRenderer;
 use CryptoScythe\Http\Generator\Renderer\CacheDirectivesRenderer;
 use CryptoScythe\Http\Generator\Renderer\ContentCodingsRenderer;
+use CryptoScythe\Http\Generator\Renderer\ForwardedParametersRenderer;
 use CryptoScythe\Http\Generator\Renderer\HeaderFieldsRenderer;
+use CryptoScythe\Http\Generator\Renderer\LinkRelationsRenderer;
 use CryptoScythe\Http\Generator\Renderer\MediaTypesRenderer;
+use CryptoScythe\Http\Generator\Renderer\PreferencesRenderer;
+use CryptoScythe\Http\Generator\Renderer\RangeUnitsRenderer;
 use CryptoScythe\Http\Generator\Renderer\RequestMethodsRenderer;
 use CryptoScythe\Http\Generator\Renderer\StatusCodeRenderer;
+use CryptoScythe\Http\Generator\Renderer\TransferCodingsRenderer;
 
 set_error_handler(
     function (int $severity, string $message, string $file, int $line): void {
@@ -61,15 +66,39 @@ try {
             $namespace,
         ),
         new Definition(
+            'http-forwarded-parameter.json',
+            'ForwardedParameters',
+            new ForwardedParametersRenderer(),
+            $namespace,
+        ),
+        new Definition(
             'http-header.json',
             'HeaderFields',
             new HeaderFieldsRenderer(),
             $namespace,
         ),
         new Definition(
+            'link-relation.json',
+            'LinkRelations',
+            new LinkRelationsRenderer(),
+            $namespace,
+        ),
+        new Definition(
             'media-type.json',
             'MediaTypes',
             new MediaTypesRenderer(),
+            $namespace,
+        ),
+        new Definition(
+            'http-preference.json',
+            'Preferences',
+            new PreferencesRenderer(),
+            $namespace,
+        ),
+        new Definition(
+            'http-range-unit.json',
+            'RangeUnits',
+            new RangeUnitsRenderer(),
             $namespace,
         ),
         new Definition(
@@ -82,6 +111,12 @@ try {
             'http-status-code.json',
             'StatusCodes',
             new StatusCodeRenderer(),
+            $namespace,
+        ),
+        new Definition(
+            'http-transfer-coding.json',
+            'TransferCodings',
+            new TransferCodingsRenderer(),
             $namespace,
         ),
     ];

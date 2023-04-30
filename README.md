@@ -72,6 +72,21 @@ public const MAX_AGE = 'max-age';
 public const GZIP = 'gzip';
 ```
 
+### Example for `ForwardedParameters.php`
+
+```php
+/**
+ * Forwarded parameter for
+ *
+ * The "for" parameter is used to disclose information about the client that initiated the request and
+ * subsequent proxies in a chain of proxies.
+ *
+ * @see https://webconcepts.info/specs/IETF/RFC/7239
+ * @see https://datatracker.ietf.org/doc/html/rfc7239#section-5.2
+ */
+public const FOR = 'for';
+```
+
 ### Example for `HeaderFields.php`
 ```php
 /**
@@ -87,6 +102,21 @@ public const GZIP = 'gzip';
  * @see https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.5
  */
 public const CONTENT_TYPE = 'Content-Type';
+```
+
+### Example for `LinkRelations.php`
+
+```php
+/**
+ * Link relation canonical
+ *
+ * The target (canonical) IRI MUST identify content that is either duplicative or a superset of the content at
+ * the context (referring) IRI.
+ *
+ * @see https://webconcepts.info/specs/IETF/RFC/6596
+ * @see https://datatracker.ietf.org/doc/html/rfc6596#section-3
+ */
+public const CANONICAL = 'canonical';
 ```
 
 ### Example for `MediaTypes.php`
@@ -111,6 +141,37 @@ public const CONTENT_TYPE = 'Content-Type';
  * @see https://datatracker.ietf.org/doc/html/rfc8259#section-1
  */
 public const APPLICATION_JSON = 'application/json';
+```
+
+### Example for `Preferences.php`
+
+```php
+/**
+ * Preference wait
+ *
+ * The "wait" preference can be used to establish an upper bound on the length of time, in seconds, the client
+ * expects it will take the server to process the request once it has been received.
+ *
+ * @see https://webconcepts.info/specs/IETF/RFC/7240
+ * @see https://datatracker.ietf.org/doc/html/rfc7240#section-4.3
+ */
+public const WAIT = 'wait';
+```
+
+### Example for `RangeUnits.php`
+
+```php
+/**
+ * Range unit bytes
+ *
+ * Since representation data is transferred in payloads as a sequence of octets, a byte range is a meaningful
+ * substructure for any representation transferable over HTTP. The "bytes" range unit is defined for expressing
+ * subranges of the data's octet sequence.
+ *
+ * @see https://webconcepts.info/specs/IETF/RFC/7233
+ * @see https://datatracker.ietf.org/doc/html/rfc7233#section-2.1
+ */
+public const BYTES = 'bytes';
 ```
 
 ### Example for `RequestMethods.php`
@@ -149,4 +210,21 @@ public const STATUS_404 = 404;
 public const MESSAGE_404 = 'Not Found';
 public const STATUS_NOT_FOUND = self::STATUS_404;
 public const MESSAGE_NOT_FOUND = self::MESSAGE_404;
+```
+
+### Example for `TransferCodings.php`
+
+```php
+/**
+ * Transfer coding chunked
+ *
+ * The chunked transfer coding wraps the payload body in order to transfer it as a series of chunks, each with
+ * its own size indicator, followed by an OPTIONAL trailer containing header fields.  Chunked enables content
+ * streams of unknown size to be transferred as a sequence of length-delimited buffers, which enables the sender
+ * to retain connection persistence and the recipient to know when it has received the entire message.
+ *
+ * @see https://webconcepts.info/specs/IETF/RFC/7230
+ * @see https://datatracker.ietf.org/doc/html/rfc7230#section-4.1
+ */
+public const CHUNKED = 'chunked';
 ```
